@@ -7,6 +7,11 @@ export class YoutubeServices {
 
     }
 
+    /**
+     * 
+     * @param {string} videoId 
+     * @returns {{text: string, duration: number, offset: number, lang: string}[]}
+     */
     static async getVideoTranscript(videoId) {
 
         const transcriptData = await YoutubeTranscript.fetchTranscript(videoId);
