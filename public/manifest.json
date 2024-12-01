@@ -1,0 +1,12 @@
+{
+    "manifest_version": 3,
+    "name": "Shortly",
+    "version": "0.0.0",
+    "description": "A web extension to generate summaries of youtube videos",
+    "permissions": [
+        "storage"
+    ],
+    "action": {
+        "default_popup": "src/popup/index.html"
+    }
+}
