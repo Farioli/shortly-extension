@@ -1,25 +1,51 @@
-import { useState } from 'react'
-import './App.css'
+import { useEffect, useState } from 'react';
+import './App.css';
+import { YoutubeServices } from './services/youtube.js';
 
-function App() {
-    const [count, setCount] = useState(0)
+export const App = () => {
+
+    const [videoId, setVideoId] = useState('');
+
+    const [transcript, setTranscript] = useState();
+
+    const readActivePageYoutubeVideoId = async () => {
+
+        try {
+
+            const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
+
+            const currentUrl = tabs[0].url;
+            const youtubeVideoId = currentUrl.split("?v=")[1];
+            setVideoId(youtubeVideoId);
+        } catch (err) {
+
+            console.error("Unable to get the current video Id");
+        }
+    }
+
+    const onRecapVideoHandler = async () => {
+
+        try {
+
+            const transcriptData = await YoutubeServices.getVideoTranscript(videoId);
+            console.log(transcriptData);
+
+        } catch (err) {
+
+            console.error("Error!", err);
+        }
+    }
+
+    useEffect(() => { readActivePageYoutubeVideoId(); }, []);
 
     return (
         <>
-            <h1>Vite + React</h1>
+            <h1>Shortly</h1>
             <div className="card">
-                <button onClick={() => setCount((count) => count + 1)}>
-                    count is {count}
-                </button>
-                <p>
-                    Edit <code>src/App.jsx</code> and save to test HMR
-                </p>
+                <div>Youtube video id is {videoId}</div>
+
+                <button onClick={onRecapVideoHandler}>Recap, please!</button>
             </div>
-            <p className="read-the-docs">
-                Click on the Vite and React logos to learn more
-            </p>
         </>
     )
 }
-
-export default App
