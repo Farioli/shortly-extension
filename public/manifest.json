@@ -11,6 +11,10 @@
         "default_popup": "src/popup/index.html"
     },
     "background": {
-        "service_worker": "background.js"
-    }
+        "service_worker": "./background.js"
+    },
+    "host_permissions": [
+        "https://www.youtube.com/*",
+        "https://*.youtube.com/*"
+    ]
 }
