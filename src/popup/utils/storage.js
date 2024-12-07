@@ -8,7 +8,7 @@ export class StorageUtils {
 
     static async saveAPIKey(apiKey) {
 
-        await chrome.storage.local.set({ apiKey });
+        await chrome.storage.local.set({ "API_KEY": apiKey });
     }
 
     static async getStorageValue(key) {
